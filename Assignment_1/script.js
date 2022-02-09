@@ -9,7 +9,7 @@ class Utils {
   isUndefined = (value) => {
     // logic to find whether value is undefined
 
-    if (value === undefined) {
+    if (typeof value === undefined) {
       return true;
     }
     return false;
