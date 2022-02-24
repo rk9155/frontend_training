@@ -11,7 +11,6 @@ function App() {
 
   const [total,setTotal] = useState("");
   const [page,setPage] = useState(1);
-  const [postPerPage,setPostPerPage] = useState(4);
 
 
   const searchMovie = async (e) => {
@@ -24,9 +23,6 @@ function App() {
           setTotal(data.Search.length);
   };
 
-  const indexLastPage = page + postPerPage;
-  const indexFirstPage = indexLastPage -postPerPage;
-  const current = Result.slice(indexFirstPage,indexLastPage);
 
   return (
     <div className="container">
@@ -58,7 +54,7 @@ function App() {
       </div>
       <Pagination 
        onChange={(value) => setPage(value)}
-       pageSize={postPerPage}
+       pageSize={1}
        total = {total}
        current = {page}
       />
