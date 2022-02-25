@@ -17,7 +17,7 @@ type MyState = {
   };
 
 class Search extends Component<MyProps, MyState>{
-    cancel: any;
+  cancel: any;
     
     constructor(props:MyProps) {
         super(props);
@@ -34,13 +34,6 @@ class Search extends Component<MyProps, MyState>{
 
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleYearChange = this.handleYearChange.bind(this);
-    }
-
-    handleNameChange(e:React.FormEvent<HTMLInputElement>) {
-        this.setState({movieName: e.currentTarget.value,loading: false,message:''},()=>this.fetchData)
-    }
-    handleYearChange(e:React.FormEvent<HTMLInputElement>) {
-        this.setState({movieYear: e.currentTarget.value,loading: false,message:''},()=>this.fetchData)
     }
   
     fetchData = (e:any) => {
@@ -61,8 +54,8 @@ class Search extends Component<MyProps, MyState>{
         })
         .then(res => {
             this.setState({
-                loading: false,
                 Result : res.data.Search,
+                loading: false
             });
         })
         .catch(error => {
@@ -75,12 +68,19 @@ class Search extends Component<MyProps, MyState>{
         })
     }
 
-    loader(loading:boolean){
+    handleNameChange(e:React.FormEvent<HTMLInputElement>) {
+      this.setState({movieName: e.currentTarget.value,loading: false,message:''},()=>this.fetchData)
+    }
+    handleYearChange(e:React.FormEvent<HTMLInputElement>) {
+        this.setState({movieYear: e.currentTarget.value,loading: false,message:''},()=>this.fetchData)
+    }
+
+    loader = (loading:boolean) => {
         if(this.state.loading){
           return (
             <Button type="primary" loading>
-            Loading
-          </Button>
+              Loading
+           </Button>
           )
         }
     }
@@ -98,21 +98,20 @@ class Search extends Component<MyProps, MyState>{
         <form className="form" onSubmit={this.fetchData}>
           <div className="search_bar">
             <div className="search">
-              <input className="input" type="text" placeholder="Movie Name" name="query" 
+              <input className="input" type="text" placeholder="Movie Name" 
                      value={movieName} onChange={this.handleNameChange}></input>
             </div>
             <div className="search">
-              <input className="input" type="text" placeholder="Movie Year" name="query" 
+              <input className="input" type="text" placeholder="Movie Year" 
                      value={movieYear} onChange = {this.handleYearChange}></input>
             </div>
             <button className="btn btn-primary" type="submit" >Submit</button>
           </div>
         </form>
-      </div>
-
-      <div className="results">
-          {this.loader(loading)}
-        <Movies movie = {this.state.Result} />
+        <div className="results">
+            {this.loader(loading)}
+            <Movies movie = {this.state.Result} />
+        </div>
       </div>
     </div>
     )

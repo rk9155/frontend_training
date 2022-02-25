@@ -29,7 +29,7 @@ class Movies extends Component<any,any> {
         {movie && movie.length > 0 &&
           movie.slice(this.state.minValue, 
               this.state.maxValue).map((item: { Title: string,Poster:string,Type:String,Year:String}) => (
-            <div key={item.Title}>
+            <div key={item.Poster+item.Title}>
               <Card cover={<img alt = "cover" src= {item.Poster} />}>
                 <Meta title={item.Title} description= {<span>Year: {item.Year}   Type: {item.Type}</span>}/>
               </Card>
